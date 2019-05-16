@@ -557,8 +557,8 @@ case (String.toInt "1") of
 
 ---
 
-## パスワード一致問題
+## [パスワード一致問題](https://gist.github.com/ababup1192/528ba858d1945f818a627d84a227fd9d)
 
 viewに対するテストもね！
 
-https://gist.github.com/ababup1192/528ba858d1945f818a627d84a227fd9d
+
