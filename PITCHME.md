@@ -188,7 +188,7 @@ text <| String.fromInt <| 1 + 1
 ## 制約プログラミングまとめ
 
 - 型とコンパイラの制約により機械的に、認識のズレを無くす
-- 強い制約は親切なエラーを出す
+- 強い制約は[親切なエラーを出す](https://qiita.com/ababup1192/items/8dae437da47f25811658)
 
 ---
 
@@ -325,6 +325,8 @@ update msg model =
         Increment ->
             ( model + 1, Cmd.none )
 ```
+
+コラム: [Elmのあらゆるものは式のため、returnが無い](https://elm-lang.org/docs/syntax#conditionals)
 
 ---
 
