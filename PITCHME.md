@@ -1,5 +1,9 @@
 <style type="text/css">
 <!--
+.reveal h1 {
+    text-transform: none;
+    font-size: 64px;
+}
 .reveal h2 {
     text-transform: none;
     font-size: 42px;
