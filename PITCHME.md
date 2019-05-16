@@ -36,6 +36,8 @@ ABAB↑↓BA
 
 制約がない婚活パーティーにはどんな問題があるか考えてみましょう
 
+---
+
 ## 制約と婚活パーティー
 
 - 年齢差がありすぎる
@@ -85,7 +87,7 @@ ABAB↑↓BA
 
 この「1」はなんでしょう？ 答えは後で発表します。
 
-```HTML
+```HTML=
 <div id="a">1</div>
 ```
 
@@ -95,7 +97,7 @@ ABAB↑↓BA
 
 問題です。画面には何と表示される？
 
-```HTML
+```HTML=
 <body>
   <div id="a">1</div>
 
@@ -125,7 +127,7 @@ ABAB↑↓BA
 [(+)](https://package.elm-lang.org/packages/elm/core/latest/Basics#(+))は関数です。引数には文字列を取ることができず**コンパイルエラー**になります。これにより文字列と数値がどういう結果になるか、という**認識のズレ**が解消されます。
 
 
-```elm
+```elm=
 > "1" + 1
 -- TYPE MISMATCH ----------------------------------------------------------- elm
 
@@ -142,7 +144,7 @@ The (+) operator only works with Int and Float values.
 
 [text関数](https://package.elm-lang.org/packages/elm/html/latest/Html#text)は、**String**型しか受け取りません。これにより、Htmlの要素としてのtextは文字列であるという**認識のズレ**が解消されます。
 
-```elm
+```elm=
 > Html.text 1
 -- TYPE MISMATCH ----------------------------------------------------------- elm
 
@@ -165,7 +167,7 @@ But `text` needs the 1st argument to be:
 
 数値は[String.fromInt](https://package.elm-lang.org/packages/elm/core/latest/String#fromInt)関数で文字列に変換してから、text関数に渡します。認識のズレが最小限に押さえられた状態で計算が行なえます。また、やりたいことに対する書き方が統一されます。
 
-```elm
+```elm=
 Html.text (String.fromInt (1 + 1))
 ```
 
@@ -237,7 +239,7 @@ text <| String.fromInt <| 1 + 1
 
 分離が上手くいけば、まるで振る舞いをテストできる。
 
-```elm
+```elm=
 updateTest : Test
 updateTest =
     describe "updateのテスト" <|
@@ -260,7 +262,7 @@ updateTest =
 
 人間にできない(とても時間の掛かる)振る舞いのテストも簡単にできる
 
-```elm
+```elm=
 updateTestHelper : Int -> Int -> Int
 updateTestHelper incCount crnt =
     if incCount == 0 then
@@ -285,7 +287,7 @@ updateTest =
 
 アプリケーションの状態は**Model**と呼ばれる。`Model == カウンタ`として今回は定義する。
 
-```elm
+```elm=
 type alias Model =
     Int
 
@@ -301,7 +303,7 @@ init _ =
 
 viewはModelを用いて組み立てられる。onClickイベントでは、modelを書き換えることはしない。*Increment*を発行するだけ。
 
-```elm
+```elm=
 view : Model -> Html Msg
 view model =
     div [ class "container" ]
@@ -316,7 +318,7 @@ view model =
 
 *Incement*を受け取り、modelを1足したものを返す。
 
-```elm
+```elm=
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -348,7 +350,7 @@ type Msg = Increment | Decrement
 
 ---
 
-# 異常に対する型
+## 異常に対する型
 
 - ユーザは常に期待通りの動きをしない
 - 特に入力は異常を含めて考えなければならない
@@ -356,7 +358,7 @@ type Msg = Increment | Decrement
 
 ---
 
-# 足し算問題
+## 足し算問題
 
 異常な振る舞いはいくつあるでしょうか？
 
@@ -369,7 +371,7 @@ https://gist.github.com/ababup1192/1397eb47add84390ff634f8c6429e637
 
 ---
 
-# 足し算問題
+## 足し算問題
 
 - 左が数値ではない場合
 - 右が数値ではない場合
@@ -377,9 +379,9 @@ https://gist.github.com/ababup1192/1397eb47add84390ff634f8c6429e637
 
 ---
 
-# 足し算問題 UI部分
+## 足し算問題 UI部分
 
-```html
+```html=
 <div>
     <input id="left" value="0">
     +
@@ -391,7 +393,7 @@ https://gist.github.com/ababup1192/1397eb47add84390ff634f8c6429e637
 
 ---
 
-# 足し算問題 スクリプト
+## 足し算問題 スクリプト
 
 文字 -> 数値 に変換。変換出来ないケースを考慮しなければならない。
 
@@ -414,7 +416,7 @@ calc.addEventListener('click', (e) => {
 
 ---
 
-# 足し算問題 
+## 足し算問題 
 
 ```elm=
 type alias Model =
@@ -436,7 +438,7 @@ init _ =
 
 ---
 
-# 足し算問題
+## 足し算問題
 
 ```elm=
 view : Model -> Html Msg
@@ -454,7 +456,7 @@ view { left, right, result } =
 
 ---
 
-# 足し算問題
+## 足し算問題
 
 [String.toInt](https://package.elm-lang.org/packages/elm/core/latest/String#toInt)は、成功と失敗 ２つの文脈を持つ型 Maybe型を返す。
 
@@ -485,7 +487,7 @@ update msg ({ left, right } as model) =
 
 ---
 
-# Maybe型とパターンマッチ
+## Maybe型とパターンマッチ
 
 ```elm=
 type Maybe a
@@ -503,14 +505,14 @@ case (String.toInt "1") of
 
 ---
 
-# まとめ
+## まとめ
 
 - 異常を型で表すことにより、考慮漏れが無くなる
 - パターンマッチ(構造の分解)により、面倒な判定と値の取り出しが一度にできる
 
 ---
 
-# パスワード一致問題
+## パスワード一致問題
 
 viewに対するテストもね！
 
@@ -518,7 +520,7 @@ https://gist.github.com/ababup1192/528ba858d1945f818a627d84a227fd9d
 
 ---
 
-# Summary
+## Summary
 
 01. 制約は本当の自由のために
 02. 振る舞いとロジックを分離
